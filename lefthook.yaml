@@ -1,0 +1,4 @@
+pre-push:
+  commands:
+    lint-and-test:
+      run: ./scripts/lint_test.sh
