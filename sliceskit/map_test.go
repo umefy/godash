@@ -25,7 +25,7 @@ func (s *mapSuite) TestMapFunc() {
 	s.Run("should return mapped slice", func() {
 		slice := []int{1, 2, 3}
 		result := Map(slice, func(e int) int { return e * 2 })
-		assert.Equal(s.T(), []int{2, 4, 5}, result)
+		assert.Equal(s.T(), []int{2, 4, 6}, result)
 	})
 }
 
