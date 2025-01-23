@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package protogen.pb;
+option go_package = "jsonkit/testdata;testdata";
+
+message User {
+    string name = 1;
+    string city = 2;
+    int32 age = 3;
+}

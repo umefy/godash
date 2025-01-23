@@ -1,0 +1,71 @@
+name: Setup Environment
+description: "Installs dependencies and generates protobuf files"
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '>=1.23'
+        check-latest: true
+        cache-dependency-path: '**/*.sum'
+
+    - name: verify go version
+      run: go version
+      shell: bash 
+
+    - name: Cache Protobuf Compiler
+      id: cache-protoc
+      uses: actions/cache@v4
+      with:
+        path: |
+          /home/runner/protoc_cache
+        key: protoc-${{ runner.os }}-v30.1
+        restore-keys: |
+          protoc-${{ runner.os }}-
+    
+    - name: Install Protobuf Compiler (if not cached)
+      if: steps.cache-protoc.outputs.cache-hit != 'true'
+      run: |
+        PROTOC_VERSION=30.1
+        PROTOC_ZIP=protoc-${PROTOC_VERSION}-linux-x86_64.zip
+        wget -q https://github.com/protocolbuffers/protobuf/releases/download/v${PROTOC_VERSION}/${PROTOC_ZIP}
+        sudo unzip -o ${PROTOC_ZIP} -d /home/runner/protoc_cache
+        sudo chmod +x /home/runner/protoc_cache/bin/protoc
+        rm ${PROTOC_ZIP}
+      shell: bash
+
+    - name: Create Symlinks for Protobuf Files
+      run: |
+        sudo ln -sf /home/runner/protoc_cache/include/google /usr/local/include/google
+        sudo ln -sf /home/runner/protoc_cache/bin/protoc /usr/local/bin/protoc
+      shell: bash
+
+    - name: Verify `protoc` Installation
+      run: |
+        protoc --version
+        ls -la /usr/local/include/google
+      shell: bash
+    
+    - name: Install protogen plugins
+      id: protogen-cache
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/go/bin/protoc-gen-go
+          ~/go/bin/protoc-gen-go-grpc
+        key: ${{ runner.os }}-protocgen-${{ hashFiles('**/go.sum') }}
+        restore-keys: |
+          ${{ runner.os }}-go-bin-
+
+    - name: Install protoc-gen-go protoc-gen-go-grpc
+      if: steps.protogen-cache.outputs.cache-hit != 'true'
+      run: |
+        go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+        go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
+      shell: bash
+
+    - name: Regenerate proto files
+      run: make regen_proto
+      shell: bash
