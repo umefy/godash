@@ -13,7 +13,7 @@ type mapSuite struct {
 
 func (s *mapSuite) TestMap() {
 	s.Run("should return nil when input slice is nil", func() {
-		result := Map[[]int](nil, func(e int, i int) int { return e * 2 })
+		result := Map[[]int](nil, func(e int, _ int) int { return e * 2 })
 		assert.Nil(s.T(), result)
 	})
 
@@ -24,7 +24,7 @@ func (s *mapSuite) TestMap() {
 
 	s.Run("should return mapped slice", func() {
 		slice := []int{1, 2, 3}
-		result := Map(slice, func(e int, i int) int { return e * 2 })
+		result := Map(slice, func(e int, _ int) int { return e * 2 })
 		assert.Equal(s.T(), []int{2, 4, 6}, result)
 	})
 }
