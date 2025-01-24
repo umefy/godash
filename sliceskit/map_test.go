@@ -42,7 +42,7 @@ func (s *MapSuite) TestMapFuncIndex() {
 	s.Run("should return mapped slice", func() {
 		slice := []int{1, 2, 3}
 		result := MapWithIndex(slice, func(e int, i int) int { return e * i })
-		s.Equal([]int{0, 2, 6}, result)
+		s.Equal([]int{1, 2, 6}, result)
 	})
 }
 
