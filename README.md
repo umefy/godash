@@ -2,8 +2,6 @@
 
 This is a util package for go project.
 
-## 1. slicekit
+## 1. sliceskit
 
-- [x] [map](./sliceskit/map.go) simulate the slice map function.
-- [ ] [filter](./sliceskit/filter.go) simulate the slice filter function.
-- [ ] [reduce](./sliceskit/reduce.go) simulate the slice reduce function.
+[`sliceskit`](./sliceskit/) package contains lots of useful slices function to boost using go slice in your applications.
