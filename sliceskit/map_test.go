@@ -1,6 +1,7 @@
 package sliceskit
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
@@ -13,12 +14,6 @@ type MapSuite struct {
 // Map should return nil when input slice is nil
 func (s *MapSuite) TestMapFunc_NilSlice() {
 	result := Map[[]int](nil, func(e int) int { return e * 2 })
-	s.Nil(result)
-}
-
-// Map should return nil when mapFunc is nil
-func (s *MapSuite) TestMapFunc_NilMapFunc() {
-	result := Map[[]int, int]([]int{1, 2, 3}, nil)
 	s.Nil(result)
 }
 
@@ -35,17 +30,51 @@ func (s *MapSuite) TestMapFuncIndex_NilSlice() {
 	s.Nil(result)
 }
 
-// MapWithIndex should return nil when mapFunc is nil
-func (s *MapSuite) TestMapFuncIndex_NilMapFunc() {
-	result := MapWithIndex[[]int, int]([]int{1, 2, 3}, nil)
-	s.Nil(result)
-}
-
 // MapWithIndex should return mapped slice
 func (s *MapSuite) TestMapFuncIndex_MappedSlice() {
 	slice := []int{1, 2, 3}
 	result := MapWithIndex(slice, func(e int, i int) int { return e * i })
 	s.Equal([]int{0, 2, 6}, result)
+}
+
+// MapWithFuncErr should return nil when input slice is nil
+func (s *MapSuite) TestMapFuncErr_NilSlice() {
+	result, err := MapWithFuncErr[[]int](nil, func(e int) (int, error) { return e * 2, nil })
+	s.Nil(result)
+	s.Nil(err)
+}
+
+// MapWithFuncErr should return error when Map func return error
+func (s *MapSuite) TestMapFuncErr_MapFuncErr() {
+	slice := []int{1, 2, 3}
+	result, err := MapWithFuncErr(slice, func(e int) (int, error) {
+		if e == 2 {
+			return 0, errors.New("error")
+		}
+		return e * 2, nil
+	})
+	s.NotNil(err)
+	s.Nil(result)
+}
+
+// MapWithIndexAndFuncErr should return nil when input slice is nil
+func (s *MapSuite) TestMapFuncIndexErr_NilSlice() {
+	result, err := MapWithIndexAndFuncErr[[]int](nil, func(e int, i int) (int, error) { return e * i, nil })
+	s.Nil(result)
+	s.Nil(err)
+}
+
+// MapWithIndexAndFuncErr should return error when Map func return error
+func (s *MapSuite) TestMapFuncIndexErr_MapFuncIndexErr() {
+	slice := []int{1, 2, 3}
+	result, err := MapWithIndexAndFuncErr(slice, func(e int, i int) (int, error) {
+		if i == 1 {
+			return 0, errors.New("error")
+		}
+		return e * i, nil
+	})
+	s.NotNil(err)
+	s.Nil(result)
 }
 
 func TestMapSuite(t *testing.T) {
