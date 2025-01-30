@@ -11,12 +11,12 @@ fmt:
 
 test:
 	@echo "⏱️ running tests now... "
-	go test -timeout 30s -cover ./... $(ARGS)
+	go test -race --parallel=4 -timeout 30s -cover $(ARGS) ./...
 	@echo "✅ passing all tests."
 
 lint:
 	@echo "⏱️ running linting now..."
-	golangci-lint run
+	golangci-lint run $(ARGS)
 	@echo "✅ passing linting..."
 
 tidy:
