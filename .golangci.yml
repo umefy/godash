@@ -25,3 +25,9 @@ linters:
     - bodyclose      # Check whether HTTP response bodies are closed
     - dupl           # Detects duplicate code
     - revive         # A faster, stricter, configurable, extensible, and beautiful linter for Go
+
+linters-settings:
+  revive:
+    rules:
+      - name: unexported-return
+        disabled: true
