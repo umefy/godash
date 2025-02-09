@@ -9,20 +9,20 @@ import (
 
 const packageName = "godash/xerrors"
 
-type stackTraceError struct {
+type StackTraceError struct {
 	err   error
 	stack string
 }
 
-func (st stackTraceError) Error() string {
+func (st StackTraceError) Error() string {
 	return st.err.Error()
 }
 
-func (st stackTraceError) Unwrap() error {
+func (st StackTraceError) Unwrap() error {
 	return st.err
 }
 
-func (st stackTraceError) errorWithStack() string {
+func (st StackTraceError) errorWithStack() string {
 	return fmt.Sprintf("%v\nStackTrace: %s", st.err, st.stack)
 }
 
@@ -39,17 +39,17 @@ func filterStackTrace(stack []byte) string {
 	return strings.Join(filteredLines, "\n")
 }
 
-func newStackTraceError(err error) stackTraceError {
-	var stErr stackTraceError
+func newStackTraceError(err error) StackTraceError {
+	var stErr StackTraceError
 	if ok := errors.As(err, &stErr); ok {
-		return stackTraceError{
+		return StackTraceError{
 			err:   err,
 			stack: stErr.stack,
 		}
 	}
 	stack := debug.Stack()
 
-	return stackTraceError{
+	return StackTraceError{
 		err:   err,
 		stack: filterStackTrace(stack),
 	}
