@@ -7,7 +7,7 @@ SEARCH_PROTO_FOLDERS=("jsonkit")
 
 for SEARCH_PROTO_FOLDER in "${SEARCH_PROTO_FOLDERS[@]}"; do
     # Define output directories for different languages
-    GO_OUT_DIR=$BASE_PATH/$GO_PROJECT/$SEARCH_PROTO_FOLDER/protogen/pb
+    GO_OUT_DIR=$BASE_PATH/$GO_PROJECT/$SEARCH_PROTO_FOLDER/testdata
 
     rm -rf $GO_OUT_DIR
 
