@@ -9,7 +9,7 @@ on:
       - main
   merge_group:
     types:
-      - checks_requested
+      - checks_requested # when use merge group
 
 jobs:
   build-and-test:
@@ -18,21 +18,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '>=1.23'
-          check-latest: true
-          cache-dependency-path: '**/*.sum'
+      - name: Setup Environment
+        uses: ./.github/actions/setup
 
-      - name: verify go version
-        run: go version
-
-      # Install dependencies
       - name: Install dependencies
-        # run: go mod tidy
         run: make tidy
 
       - name: Run tests
-        # run: go test -v -timeout 30s -cover ./...
         run: make test ARGS="-v"
