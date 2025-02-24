@@ -27,4 +27,4 @@ go.work.sum
 .vscode
 
 # generated files
-internal/testdata
+jsonkit/testdata/*.pb.go
