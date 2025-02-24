@@ -1,5 +1,8 @@
 .PHONY: default check fmt test lint tidy help
 
+TEST_EXCLUDE_PATHS="protogen/pb"
+TEST_PATHS=$(shell go list ./... | grep -v -E "$(TEST_EXCLUDE_PATHS)")
+
 default: check
 
 check: tidy fmt lint test
@@ -11,7 +14,7 @@ fmt:
 
 test:
 	@echo "⏱️ running tests now... "
-	go test -race --parallel=4 -timeout 30s -cover $(ARGS) ./...
+	go test -race --parallel=4 -timeout 30s -cover $(ARGS) $(TEST_PATHS) 
 	@echo "✅ passing all tests."
 
 lint:

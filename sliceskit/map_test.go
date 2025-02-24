@@ -1,10 +1,11 @@
-package sliceskit
+package sliceskit_test
 
 import (
 	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/suite"
+	"github.com/umefy/godash/sliceskit"
 )
 
 type MapSuite struct {
@@ -13,33 +14,33 @@ type MapSuite struct {
 
 // Map should return nil when input slice is nil
 func (s *MapSuite) TestMapFunc_NilSlice() {
-	result := Map[[]int](nil, func(e int) int { return e * 2 })
+	result := sliceskit.Map[[]int](nil, func(e int) int { return e * 2 })
 	s.Nil(result)
 }
 
 // Map should return mapped slice
 func (s *MapSuite) TestMapFunc_MappedSlice() {
 	slice := []int{1, 2, 3}
-	result := Map(slice, func(e int) int { return e * 2 })
+	result := sliceskit.Map(slice, func(e int) int { return e * 2 })
 	s.Equal([]int{2, 4, 6}, result)
 }
 
 // MapWithIndex should return nil when input slice is nil
 func (s *MapSuite) TestMapFuncIndex_NilSlice() {
-	result := MapWithIndex[[]int](nil, func(e int, i int) int { return e * i })
+	result := sliceskit.MapWithIndex[[]int](nil, func(e int, i int) int { return e * i })
 	s.Nil(result)
 }
 
 // MapWithIndex should return mapped slice
 func (s *MapSuite) TestMapFuncIndex_MappedSlice() {
 	slice := []int{1, 2, 3}
-	result := MapWithIndex(slice, func(e int, i int) int { return e * i })
+	result := sliceskit.MapWithIndex(slice, func(e int, i int) int { return e * i })
 	s.Equal([]int{0, 2, 6}, result)
 }
 
 // MapWithFuncErr should return nil when input slice is nil
 func (s *MapSuite) TestMapFuncErr_NilSlice() {
-	result, err := MapWithFuncErr[[]int](nil, func(e int) (int, error) { return e * 2, nil })
+	result, err := sliceskit.MapWithFuncErr[[]int](nil, func(e int) (int, error) { return e * 2, nil })
 	s.Nil(result)
 	s.Nil(err)
 }
@@ -47,7 +48,7 @@ func (s *MapSuite) TestMapFuncErr_NilSlice() {
 // MapWithFuncErr should return error when Map func return error
 func (s *MapSuite) TestMapFuncErr_MapFuncErr() {
 	slice := []int{1, 2, 3}
-	result, err := MapWithFuncErr(slice, func(e int) (int, error) {
+	result, err := sliceskit.MapWithFuncErr(slice, func(e int) (int, error) {
 		if e == 2 {
 			return 0, errors.New("error")
 		}
@@ -59,7 +60,7 @@ func (s *MapSuite) TestMapFuncErr_MapFuncErr() {
 
 // MapWithIndexAndFuncErr should return nil when input slice is nil
 func (s *MapSuite) TestMapFuncIndexErr_NilSlice() {
-	result, err := MapWithIndexAndFuncErr[[]int](nil, func(e int, i int) (int, error) { return e * i, nil })
+	result, err := sliceskit.MapWithIndexAndFuncErr[[]int](nil, func(e int, i int) (int, error) { return e * i, nil })
 	s.Nil(result)
 	s.Nil(err)
 }
@@ -67,7 +68,7 @@ func (s *MapSuite) TestMapFuncIndexErr_NilSlice() {
 // MapWithIndexAndFuncErr should return error when Map func return error
 func (s *MapSuite) TestMapFuncIndexErr_MapFuncIndexErr() {
 	slice := []int{1, 2, 3}
-	result, err := MapWithIndexAndFuncErr(slice, func(e int, i int) (int, error) {
+	result, err := sliceskit.MapWithIndexAndFuncErr(slice, func(e int, i int) (int, error) {
 		if i == 1 {
 			return 0, errors.New("error")
 		}
