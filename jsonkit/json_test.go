@@ -8,8 +8,8 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/suite"
+	pb "github.com/umefy/godash/internal/testdata"
 	"github.com/umefy/godash/jsonkit"
-	pb "github.com/umefy/godash/jsonkit/testdata"
 )
 
 type JsonSuite struct {

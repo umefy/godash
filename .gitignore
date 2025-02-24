@@ -26,5 +26,5 @@ go.work.sum
 
 .vscode
 
-# proto files
-testdata
+# generated files
+internal/testdata
