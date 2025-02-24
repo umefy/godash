@@ -1,7 +1,6 @@
 package jsonkit_test
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -10,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/suite"
 	"github.com/umefy/godash/jsonkit"
-	pb "github.com/umefy/godash/jsonkit/protogen/pb"
+	pb "github.com/umefy/godash/jsonkit/testdata"
 )
 
 type JsonSuite struct {
@@ -103,7 +102,6 @@ func (s *JsonSuite) TestProtoJSONResponse_Success() {
 
 	err := jsonkit.ProtoJSONResponse(w, http.StatusCreated, msg)
 
-	fmt.Println(w.Body.String())
 	s.Nil(err)
 	s.Equal(http.StatusCreated, w.Code)
 	s.Equal("application/json", w.Header().Get("Content-Type"))
