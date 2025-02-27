@@ -38,5 +38,5 @@ runs:
       shell: bash
 
     - name: Regenerate proto files
-      run: ./scripts/regen_proto.sh
+      run: make regen_proto
       shell: bash
