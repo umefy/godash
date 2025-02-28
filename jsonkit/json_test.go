@@ -16,6 +16,84 @@ type JsonSuite struct {
 	suite.Suite
 }
 
+func (s *JsonSuite) TestMarshal_Success() {
+	user := &pb.User{Name: "John", Age: 30, City: "New York"}
+
+	data, err := jsonkit.Marshal(user)
+
+	s.Nil(err)
+	s.JSONEq(`{"name":"John","age":30,"city":"New York"}`+"\n", string(data))
+}
+
+func (s *JsonSuite) TestMarshal_Error() {
+	// Create a channel which cannot be marshaled to JSON
+	ch := make(chan int)
+
+	_, err := jsonkit.Marshal(ch)
+
+	s.NotNil(err)
+}
+
+func (s *JsonSuite) TestUnMarshal_Success() {
+	jsonStr := `{"name": "John", "age": 30, "city": "New York"}`
+
+	var user pb.User
+	err := jsonkit.UnMarshal([]byte(jsonStr), &user)
+
+	s.Nil(err)
+	s.Equal("John", user.Name)
+	s.Equal(int32(30), user.Age)
+	s.Equal("New York", user.City)
+}
+
+func (s *JsonSuite) TestUnMarshal_ExtraFields_Error() {
+	jsonStr := `{"name": "John", "age": 30, "city": "New York", "extra": "field"}`
+
+	var user pb.User
+	err := jsonkit.UnMarshal([]byte(jsonStr), &user)
+
+	s.NotNil(err)
+}
+
+func (s *JsonSuite) TestUnMarshal_InvalidJson_Error() {
+	jsonStr := `{"name": "John", "age": 30, "city": "New York" invalid`
+
+	var user pb.User
+	err := jsonkit.UnMarshal([]byte(jsonStr), &user)
+
+	s.NotNil(err)
+}
+
+func (s *JsonSuite) TestMarshalProto_Success() {
+	user := &pb.User{Name: "John", Age: 30, City: "New York"}
+
+	data, err := jsonkit.MarshalProto(user)
+
+	s.Nil(err)
+	s.JSONEq(`{"name":"John","age":30,"city":"New York"}`, string(data))
+}
+
+func (s *JsonSuite) TestUnMarshalProto_Success() {
+	jsonStr := `{"name": "John", "age": 30, "city": "New York"}`
+
+	var user pb.User
+	err := jsonkit.UnMarshalProto([]byte(jsonStr), &user)
+
+	s.Nil(err)
+	s.Equal("John", user.Name)
+	s.Equal(int32(30), user.Age)
+	s.Equal("New York", user.City)
+}
+
+func (s *JsonSuite) TestUnMarshalProto_InvalidJson_Error() {
+	jsonStr := `{"name": "John", "age": 30, "city": "New York" invalid`
+
+	var user pb.User
+	err := jsonkit.UnMarshalProto([]byte(jsonStr), &user)
+
+	s.NotNil(err)
+}
+
 func (s *JsonSuite) TestBindRequestBody_Success() {
 	jsonStr := `{"name": "John", "age": 30, "city": "New York"}`
 

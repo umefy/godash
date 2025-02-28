@@ -31,3 +31,5 @@ linters-settings:
     rules:
       - name: unexported-return
         disabled: true
+  goconst:
+    ignore-tests: true
