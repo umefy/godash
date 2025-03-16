@@ -1,4 +1,5 @@
-.PHONY: default check fmt test lint tidy regen_proto help
+SHELL := /bin/bash
+.PHONY: default check fmt test lint tidy regen_proto generate help
 
 TEST_EXCLUDE_PATHS=protogen/pb
 TEST_PATHS=$(shell go list ./... | grep -v -E "$(TEST_EXCLUDE_PATHS)")
