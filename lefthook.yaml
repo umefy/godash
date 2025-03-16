@@ -1,4 +1,4 @@
 pre-push:
   commands:
     lint-and-test:
-      run: make -j check
+      run: make check
