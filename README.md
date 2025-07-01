@@ -6,6 +6,12 @@
 
 A comprehensive Go utility library providing essential tools for modern Go applications. Godash offers type-safe, performant utilities for common programming tasks with a focus on functional programming patterns and developer experience.
 
+## 🛠️ Installation
+
+```bash
+go get github.com/umefy/godash
+```
+
 ## 🚀 Features
 
 - **Type Safe**: All utilities use Go generics for compile-time type safety
@@ -122,12 +128,6 @@ log.InfoContext(ctx, "Request processed", slog.String("user", "alice"))
 - Middleware support for global attributes
 
 [📖 Full Documentation](./logger/README.md)
-
-## 🛠️ Installation
-
-```bash
-go get github.com/umefy/godash
-```
 
 ## 📋 Requirements
 
