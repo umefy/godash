@@ -2,3 +2,8 @@ pre-push:
   commands:
     lint-and-test:
       run: make check
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm --dir scripts/commitlint exec commitlint --edit {1}
