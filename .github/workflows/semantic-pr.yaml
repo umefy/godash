@@ -20,4 +20,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           wip: true
-          ignorePattern: '^release-please--'
