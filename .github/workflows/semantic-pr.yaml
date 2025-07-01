@@ -7,6 +7,9 @@ on:
       - edited
       - reopened
       - synchronize
+  merge_group:
+    types:
+      - checks_requested # when use merge group
 
 jobs:
   semantic-pr:
