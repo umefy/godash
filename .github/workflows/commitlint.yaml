@@ -39,6 +39,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
+          cache: pnpm
+          cache-dependency-path: ./scripts/commitlint/pnpm-lock.yaml
 
       - name: Install commitlint
         run: pnpm install
