@@ -9,7 +9,7 @@ on:
       - synchronize
 
 jobs:
-  main:
+  semantic-pr:
     name: Validate PR title
     runs-on: ubuntu-latest
     permissions:
@@ -20,3 +20,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           wip: true
+          ignorePattern: '^release-please--'

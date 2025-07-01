@@ -1,11 +1,6 @@
 {
-  "packages": {
-    "umefy/godash": {
-      "release-type": "go",
-      "component": ".",
-      "include-v-in-tag": true,
-      "bump-minor-pre-major": true,
-      "bump-patch-for-minor-pre-major": true
-    }
-  }
+  "release-type": "go",
+  "include-v-in-tag": true,
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true
 }
