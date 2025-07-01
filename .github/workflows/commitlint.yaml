@@ -40,9 +40,10 @@ jobs:
         with:
           node-version: lts/*
           cache: pnpm
+          cwd: ./scripts/commitlint
 
       - name: Install commitlint
-        run: pnpm add -D @commitlint/cli @commitlint/config-conventional
+        run: pnpm install
 
       - name: Print versions
         run: |
