@@ -4,7 +4,8 @@
       "release-type": "go",
       "component": "godash",
       "include-v-in-tag": true,
-      "release-commit-message": "chore: release ${version} [skip ci]"
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true
     }
   }
 }
