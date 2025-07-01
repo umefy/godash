@@ -2,7 +2,7 @@
   "packages": {
     "umefy/godash": {
       "release-type": "go",
-      // "component": "godash", // only use for monorepo
+      "component": ".",
       "include-v-in-tag": true,
       "bump-minor-pre-major": true,
       "bump-patch-for-minor-pre-major": true
