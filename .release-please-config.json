@@ -1,0 +1,5 @@
+{
+  "release-type": "go",
+  "include-v-in-tag": true,
+  "package-name": "github.com/umefy/godash"
+}
