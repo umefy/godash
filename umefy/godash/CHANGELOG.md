@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/umefy/godash/compare/godash-v1.0.0...godash-v1.0.1) (2025-07-01)
+
+
+### Bug Fixes
+
+* empty just testing release-please ([9baa215](https://github.com/umefy/godash/commit/9baa21564eb51eadb3d3064a2170684fb72f1a03))
+
 ## 1.0.0 (2025-07-01)
 
 
