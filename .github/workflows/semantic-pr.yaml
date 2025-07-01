@@ -7,6 +7,9 @@ on:
       - edited
       - reopened
       - synchronize
+  # merge_group:
+  #   types:
+  #     - checks_requested # when use merge group # action-semantic-pull-request not support merge group, only work on pull request, so we should set this check optional in ruleset as well.
 
 jobs:
   semantic-pr:
