@@ -1,0 +1,9 @@
+{
+  "packages": {
+    "umefy/godash": {
+      "release-type": "go",
+      "component": "godash",
+      "include-v-in-tag": true
+    }
+  }
+}
