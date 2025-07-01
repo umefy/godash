@@ -9,7 +9,7 @@ A comprehensive Go utility library providing essential tools for modern Go appli
 ## 🛠️ Installation
 
 ```bash
-go get github.com/umefy/godash
+go get github.com/umefy/godash@latest
 ```
 
 ## 🚀 Features
