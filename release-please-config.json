@@ -3,7 +3,8 @@
     "umefy/godash": {
       "release-type": "go",
       "component": "godash",
-      "include-v-in-tag": true
+      "include-v-in-tag": true,
+      "release-commit-message": "chore: release ${version} [skip ci]"
     }
   }
 }
